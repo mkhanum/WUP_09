@@ -44,45 +44,58 @@ We will be using numerical~numerical because we will be looking at all explanato
 
 
 ```{r}
-Fishies=filter(Fishdata, Species == "Perch")
-Fishies = select(Fishies,-Species)
-pairs(Fishies)
+FishiesP=filter(Fishdata, Species == "Perch")
+FishiesP = select(FishiesP,-Species)
+pairs(FishiesP)
 ```
 
 ```{r}
-Fishies=filter(Fishdata, Species == "Bream")
-Fishies = select(Fishies,-Species)
-pairs(Fishies)
+FishiesB=filter(Fishdata, Species == "Bream")
+FishiesB = select(FishiesB,-Species)
+pairs(FishiesB)
 ```
 
 ```{r}
-Fishies=filter(Fishdata, Species == "Smelt")
-Fishies = select(Fishies,-Species)
-pairs(Fishies)
+FishiesS=filter(Fishdata, Species == "Smelt")
+FishiesS = select(FishiesS,-Species)
+pairs(FishiesS)
 ```
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
 ### Numerical Descriptive Results
 
 ```{r}
-summary(Fishies)
+summary(FishiesP)
+summary(FishiesB)
+summary(FishiesS)
 ```
+
+
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
 
 ```{r}
-Perchmodel=lm(Weight~Length2+Width,data=Fishies)
+Perchmodel=lm(Weight~Height+Width,data=FishiesP)
 summary(Perchmodel)
 ```
 
+```{r}
+Breammodel=lm(Weight~Length1+Height,data=FishiesB)
+summary(Breammodel)
+```
+
+```{r}
+Smeltmodel=lm(Weight~Length2+Height,data=FishiesS)
+summary(Smeltmodel)
+```
 
 
 ```{r}
 library(leaps)
 regsubsets.out <-
     regsubsets(Weight ~ .,
-               data = Fishies,
+               data = FishiesP,
                nbest = 1,       # 1 best model for each number of predictors
                nvmax = NULL,    # NULL for no limit on number of variables
                force.in = NULL, force.out = NULL,
